@@ -5,19 +5,6 @@ This tree is the most basic tree structure.
 Each node have at most two children.
 Left child key =< Parent key =< Right child key
 
-# Complexity
-## Worst case time complexity
-Space    O(n) 
-Search   O(n)
-Insert   O(n)
-Delete   O(n)
-
-## Average case time complexity
-Space	   O(n)
-Search	 O(log n)
-Insert	 O(log n)
-Delete	 O(log n)
-
 # Traverse
 ## Depth-first search
 - preorder
