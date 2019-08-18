@@ -2,74 +2,48 @@ package main
 
 import "fmt"
 
-// Node has a key and Children.
+// Node is a node of tree.
 type Node struct {
-	Key      string
-	Children map[rune]*Node
+	key      string
+	children map[rune]*Node
 }
 
-// Tree has a root node.
-type Tree struct {
-	Root *Node
+// NewNode is create a root node.
+func NewNode() *Node {
+	return &Node{
+		key:      "",
+		children: make(map[rune]*Node),
+	}
 }
 
 // Insert is insert a word to tree.
-func (t *Tree) Insert(word string) {
-	if t.Root == nil {
-		t.Root = &Node{"", make(map[rune]*Node)}
-	}
-
-	targetNode := t.Root
+func (n *Node) Insert(word string) {
 	runes := []rune(word)
+	curNode := n
 
-	for i := range runes {
-		r := runes[i]
-
-		if node, ok := targetNode.Children[r]; ok {
-			targetNode = node
+	for _, r := range runes {
+		if nextNode, ok := curNode.children[r]; ok {
+			curNode = nextNode
 		} else {
-			targetNode.Children[r] = &Node{string(r), make(map[rune]*Node)}
+			curNode.children[r] = &Node{
+				key:      string(r),
+				children: make(map[rune]*Node),
+			}
 
-			targetNode = targetNode.Children[r]
+			curNode = curNode.children[r]
 		}
 	}
-}
-
-// Has is check whether tree has a word.
-func (t *Tree) Has(word string) bool {
-	check := true
-
-	targetNode := t.Root
-
-	runes := []rune(word)
-
-	for i := range runes {
-		r := runes[i]
-
-		if node, ok := targetNode.Children[r]; ok {
-			targetNode = node
-		} else {
-			check = false
-		}
-	}
-
-	return check
 }
 
 func main() {
-	tree := &Tree{}
+	n := NewNode()
 
-	tree.Insert("first")
-	tree.Insert("far")
-	tree.Insert("farm")
-	tree.Insert("feed")
-	tree.Insert("second")
+	n.Insert("word")
+	n.Insert("wheel")
+	n.Insert("world")
+	n.Insert("hoge")
+	n.Insert("hostpital")
+	n.Insert("mod")
 
-	fmt.Printf("%v", tree)
-
-	if tree.Has("far") {
-		fmt.Println("A word exists in tree.")
-	} else {
-		fmt.Println("A word doesn't exists in tree.")
-	}
+	fmt.Printf("%v", n)
 }

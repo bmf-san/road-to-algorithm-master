@@ -1,5 +1,4 @@
 # Trie(Prefix Tree)
-A trie is also called digital tree, radix tree or prefix tree.
 It is a kind of search tree which is used as an ordered tree data structure.
 This data structure is used as an implementation of an associative array.
 
